@@ -6,8 +6,8 @@ FROM nvidia/cuda:10.2-cudnn7-devel-ubuntu18.04
 ENV TENSORFLOW_VERSION=1.14.0
 ENV PYTORCH_VERSION=1.6.0
 ENV TORCHVISION_VERSION=0.7.0
-ENV CUDNN_VERSION=7.6.5.32-1+cuda10.1
-ENV NCCL_VERSION=2.4.8-1+cuda10.1
+ENV CUDNN_VERSION=7.6.5.32-1+cuda10.2
+ENV NCCL_VERSION=2.7.8-1+cuda10.2
 ENV MXNET_VERSION=1.4.1
 
 # Python 2.7 or 3.6 is supported by Ubuntu Bionic out of the box
@@ -77,7 +77,8 @@ RUN pip --no-cache-dir install numpy \
 && \
     rm -rf /root/.cache/pip/http/*
 
-RUN pip3 install torch==1.6.0+cu101 torchvision==0.7.0+cu101 -f https://download.pytorch.org/whl/torch_stable.html \
+# lxy
+RUN pip3 install torch==1.6.0+cu102 torchvision==0.7.0+cu102 -f https://download.pytorch.org/whl/torch_stable.html \
 #RUN pip3 --no-cache-dir install torch torchvision \
 && \
     rm -rf /root/.cache/pip/http/*
