@@ -77,11 +77,10 @@ RUN pip --no-cache-dir install numpy \
 && \
     rm -rf /root/.cache/pip/http/*
 
-# lxy
-RUN pip3 install torch==1.6.0+cu102 torchvision==0.7.0+cu102 -f https://download.pytorch.org/whl/torch_stable.html \
-#RUN pip3 --no-cache-dir install torch torchvision \
-&& \
-    rm -rf /root/.cache/pip/http/*
+# lxy edit
+# RUN pip3 install torch==1.6.0+cu102 torchvision==0.7.0+cu102 -f https://download.pytorch.org/whl/torch_stable.html \
+# RUN pip3 --no-cache-dir install torch torchvision \
+RUN pip3 install torch torchvision && rm -rf /root/.cache/pip/http/*
 
 #COPY ./torch-1.1.0-cp36-cp36m-manylinux1_x86_64.whl /root/
 #RUN pip3 install /root/torch-1.1.0-cp36-cp36m-manylinux1_x86_64.whl  torchvision==0.3.0 && rm -rf /root/torch-1.1.0-cp36-cp36m-manylinux1_x86_64.whl
