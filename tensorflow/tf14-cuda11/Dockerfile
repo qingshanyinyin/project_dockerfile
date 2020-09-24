@@ -4,7 +4,7 @@ FROM nvidia/cuda:11.0-cudnn8-devel-ubuntu18.04
 #FROM cuda:10.1-cudnn7-devel-ubuntu18.04-inpsur
 
 # TensorFlow version is tightly coupled to CUDA and cuDNN so it should be selected carefully
-ENV TENSORFLOW_VERSION=1.14.0
+ENV TENSORFLOW_VERSION=1.15.0
 ENV PYTORCH_VERSION=1.6.0
 ENV TORCHVISION_VERSION=0.7.0
 # lxy edit
@@ -81,7 +81,7 @@ RUN pip --no-cache-dir install numpy \
     rm -rf /root/.cache/pip/http/*
 
 # lxy edit
-RUN pip3 install tensorflow-gpu==1.14.0 \
+RUN pip3 install tensorflow-gpu==1.15.0 \
 # RUN pip3 install torch==1.6.0+cu101 torchvision==0.7.0+cu101 -f https://download.pytorch.org/whl/torch_stable.html \
 #RUN pip3 --no-cache-dir install torch torchvision \
 && \
