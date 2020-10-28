@@ -1,9 +1,16 @@
-FROM nvcr.io/nvidia/tensorflow:20.09-tf2-py3
+FROM nvcr.io/nvidia/tensorflow:20.09-tf1-py3
 
 
 # Install OpenSSH for MPI to communicate between containers
 RUN  apt-get -o Acquire::Check-Valid-Until=false  -o Acquire::Check-Date=false   update && apt-get install -y --no-install-recommends openssh-client openssh-server && \
     mkdir -p /var/run/sshd
+
+# python tools
+RUN pip --no-cache-dir install jupyter \
+                jupyterlab \
+&& \
+    rm -rf /root/.cache/pip/http/*
+
 #
 # Allow OpenSSH to talk to containers without asking for confirmation
 RUN cat /etc/ssh/ssh_config | grep -v StrictHostKeyChecking > /etc/ssh/ssh_config.new && \
@@ -12,6 +19,7 @@ RUN cat /etc/ssh/ssh_config | grep -v StrictHostKeyChecking > /etc/ssh/ssh_confi
     echo "PermitRootLogin yes" >> /etc/ssh/sshd_config.new && \
     mv /etc/ssh/ssh_config.new /etc/ssh/ssh_config && \
     mv /etc/ssh/sshd_config.new /etc/ssh/sshd_config
+
 
 ##jupyter
 RUN mkdir /etc/jupyter/ && wget -P /etc/jupyter/  https://raw.githubusercontent.com/Winowang/jupyter_gpu/master/jupyter_notebook_config.py
