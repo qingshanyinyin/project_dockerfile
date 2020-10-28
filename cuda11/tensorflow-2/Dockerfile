@@ -1,4 +1,4 @@
-FROM nvcr.io/nvidia/tensorflow:20.09-tf1-py3
+FROM nvcr.io/nvidia/tensorflow:20.09-tf2-py3
 
 
 # Install OpenSSH for MPI to communicate between containers
