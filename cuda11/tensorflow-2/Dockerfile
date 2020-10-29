@@ -23,8 +23,8 @@ RUN cat /etc/ssh/ssh_config | grep -v StrictHostKeyChecking > /etc/ssh/ssh_confi
 #ENV JUPYTER_PORT 8888
 EXPOSE 2000-6000
 ##jupyter
-# RUN mkdir /etc/jupyter/ && wget -P /etc/jupyter/  https://raw.githubusercontent.com/Winowang/jupyter_gpu/master/jupyter_notebook_config.py
-RUN mkdir /etc/jupyter/ && wget -P /etc/jupyter/  http://47.94.14.169:/jupyter/jupyter_notebook_config.py
+RUN mkdir /etc/jupyter/ && wget -P /etc/jupyter/  https://raw.githubusercontent.com/Winowang/jupyter_gpu/master/jupyter_notebook_config.py
+# RUN mkdir /etc/jupyter/ && wget -P /etc/jupyter/  http://47.94.14.169:/jupyter/jupyter_notebook_config.py
 RUN wget -P /etc/jupyter/ https://raw.githubusercontent.com/Winowang/jupyter_gpu/master/custom.js
 ## tini
 ENV TINI_VERSION v0.18.0
