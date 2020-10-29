@@ -1,4 +1,4 @@
-FROM nvcr.io/nvidia/tensorflow:20.09-tf1-py3
+FROM nvcr.io/nvidia/tensorflow:20.09-tf2-py3
 
 
 # Install OpenSSH for MPI to communicate between containers
@@ -20,6 +20,7 @@ RUN cat /etc/ssh/ssh_config | grep -v StrictHostKeyChecking > /etc/ssh/ssh_confi
     mv /etc/ssh/ssh_config.new /etc/ssh/ssh_config && \
     mv /etc/ssh/sshd_config.new /etc/ssh/sshd_config
 
+ENV JUPYTER_PORT 8888
 
 ##jupyter
 RUN mkdir /etc/jupyter/ && wget -P /etc/jupyter/  https://raw.githubusercontent.com/Winowang/jupyter_gpu/master/jupyter_notebook_config.py
