@@ -20,8 +20,8 @@ RUN cat /etc/ssh/ssh_config | grep -v StrictHostKeyChecking > /etc/ssh/ssh_confi
     mv /etc/ssh/ssh_config.new /etc/ssh/ssh_config && \
     mv /etc/ssh/sshd_config.new /etc/ssh/sshd_config
 
-#ENV JUPYTER_PORT 8888
-EXPOSE 2000-6000
+ENV JUPYTER_PORT 8888
+EXPOSE 20000-60000
 ##jupyter
 RUN mkdir /etc/jupyter/ && wget -P /etc/jupyter/  https://raw.githubusercontent.com/Winowang/jupyter_gpu/master/jupyter_notebook_config.py
 # RUN mkdir /etc/jupyter/ && wget -P /etc/jupyter/  http://47.94.14.169:/jupyter/jupyter_notebook_config.py
