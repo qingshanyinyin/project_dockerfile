@@ -13,8 +13,8 @@ jupyter_port = '8888'
 if 'JUPYTER_HOST' in os.environ:
     jupyter_host = os.environ['JUPYTER_HOST']
 
-#if 'JUPYTER_PORT' in os.environ:
-#    jupyter_port = os.environ['JUPYTER_PORT']
+if 'JUPYTER_PORT' in os.environ:
+    jupyter_port = os.environ['JUPYTER_PORT']
 
 #import pdb
 #pdb.set_trace()

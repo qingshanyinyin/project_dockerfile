@@ -6,10 +6,6 @@ RUN  apt-get -o Acquire::Check-Valid-Until=false  -o Acquire::Check-Date=false  
     mkdir -p /var/run/sshd
 
 # python tools
-RUN pip --no-cache-dir install jupyter \
-                jupyterlab \
-&& \
-    rm -rf /root/.cache/pip/http/*
 
 #
 # Allow OpenSSH to talk to containers without asking for confirmation
@@ -20,12 +16,11 @@ RUN cat /etc/ssh/ssh_config | grep -v StrictHostKeyChecking > /etc/ssh/ssh_confi
     mv /etc/ssh/ssh_config.new /etc/ssh/ssh_config && \
     mv /etc/ssh/sshd_config.new /etc/ssh/sshd_config
 
-ENV JUPYTER_PORT 8888
-EXPOSE 20000-60000
 ##jupyter
-# RUN mkdir /etc/jupyter/ && wget -P /etc/jupyter/  https://raw.githubusercontent.com/Winowang/jupyter_gpu/master/jupyter_notebook_config.py
-RUN mkdir /etc/jupyter/ && wget -P /etc/jupyter/  http://47.94.14.169:/jupyter/jupyter_notebook_config.py
-RUN wget -P /etc/jupyter/ https://raw.githubusercontent.com/Winowang/jupyter_gpu/master/custom.js
+RUN rm -rf /usr/local/etc/jupyter/jupyter_notebook_config.py && \
+	rm -rf /usr/local/etc/jupyter/custom.js
+RUN wget -P /usr/local/etc/jupyter/ https://raw.githubusercontent.com/Winowang/jupyter_gpu/master/jupyter_notebook_config.py
+RUN wget -P /usr/local/etc/jupyter/ https://raw.githubusercontent.com/Winowang/jupyter_gpu/master/custom.js
 ## tini
 ENV TINI_VERSION v0.18.0
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /tini
