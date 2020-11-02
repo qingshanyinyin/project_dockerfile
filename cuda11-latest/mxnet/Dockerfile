@@ -14,7 +14,7 @@ RUN cat /etc/ssh/ssh_config | grep -v StrictHostKeyChecking > /etc/ssh/ssh_confi
     mv /etc/ssh/sshd_config.new /etc/ssh/sshd_config
 
 # python tools
-RUN pip --no-cache-dir install
+RUN pip --no-cache-dir install \
                 scipy \
                 opencv-python \
                 tensorboardX \
