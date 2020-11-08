@@ -13,6 +13,11 @@ RUN cat /etc/ssh/ssh_config | grep -v StrictHostKeyChecking > /etc/ssh/ssh_confi
     mv /etc/ssh/ssh_config.new /etc/ssh/ssh_config && \
     mv /etc/ssh/sshd_config.new /etc/ssh/sshd_config
 
+# Install Horovod, temporarily using CUDA stubs
+RUN ldconfig /usr/local/cuda/targets/x86_64-linux/lib/stubs && \
+    HOROVOD_GPU_ALLREDUCE=NCCL  HOROVOD_WITH_PYTORCH=1 pip install --no-cache-dir horovod==0.20.0 && \
+    ldconfig
+
 # python tools
 RUN pip --no-cache-dir install \
                 scipy \
