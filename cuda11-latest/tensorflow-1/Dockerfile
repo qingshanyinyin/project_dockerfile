@@ -25,6 +25,7 @@ RUN pip --no-cache-dir install \
                 tqdm \
                 mpi4py \
                 matplotlib \
+                visdom \
 && \
     rm -rf /root/.cache/pip/http/*
 
