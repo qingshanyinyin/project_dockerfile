@@ -74,7 +74,7 @@ RUN pip --no-cache-dir install numpy \
     rm -rf /root/.cache/pip/http/*
 
 # lxy edit
-RUN pip install tensorflow-gpu==2.10 && rm -rf /root/.cache/pip/http/*
+RUN pip install tensorflow-gpu==2.1.0 && rm -rf /root/.cache/pip/http/*
 
 # Install Open MPI
 RUN mkdir /tmp/openmpi && \
