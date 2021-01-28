@@ -80,7 +80,7 @@ RUN pip --no-cache-dir install future typing
 
 # for python3.5
 RUN pip --no-cache-dir install  tensorflow-gpu==${TENSORFLOW_VERSION} \ 
-         keras \                                                                   
+         keras \
         h5py \                                                                                                                                                       
 && \                                                                                                                                                                 
     rm -rf /root/.cache/pip/http/*                                                                                                                                   
