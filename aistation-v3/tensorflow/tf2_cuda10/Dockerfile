@@ -1,12 +1,12 @@
 # lxy edit
-FROM nvidia/cuda:10.2-cudnn7-devel-ubuntu18.04
+FROM nvidia/cuda:10.1-cudnn7-devel-ubuntu18.04
 
 # TensorFlow version is tightly coupled to CUDA and cuDNN so it should be selected carefully
 ENV TENSORFLOW_VERSION=2.1.0
 # lxy edit
-ENV CUDNN_VERSION=7.6.5.32-1+cuda10.2
+ENV CUDNN_VERSION=7.6.5.32-1+cuda10.1
 # lxy edit
-ENV NCCL_VERSION=2.8.3-1+cuda10.2
+ENV NCCL_VERSION=2.8.3-1+cuda10.1
 
 # Python 2.7 or 3.6 is supported by Ubuntu Bionic out of the box
 ARG python=3.7
@@ -70,8 +70,8 @@ RUN pip --no-cache-dir install numpy \
         tensorboard \
         h5py \
         keras==2.3.1 \
-&& \
-    rm -rf /root/.cache/pip/http/*
+        -U scikit-learn \
+    &&  rm -rf /root/.cache/pip/http/*
 
 # lxy edit
 RUN pip install tensorflow-gpu==2.1.0 && rm -rf /root/.cache/pip/http/*
@@ -79,9 +79,9 @@ RUN pip install tensorflow-gpu==2.1.0 && rm -rf /root/.cache/pip/http/*
 # Install Open MPI
 RUN mkdir /tmp/openmpi && \
     cd /tmp/openmpi && \
-    wget https://www.open-mpi.org/software/ompi/v4.0/downloads/openmpi-4.0.5.tar.gz && \
-    tar zxf openmpi-4.0.5.tar.gz && \
-    cd openmpi-4.0.5 && \
+    wget https://www.open-mpi.org/software/ompi/v4.0/downloads/openmpi-4.0.2.tar.gz && \
+    tar zxf openmpi-4.0.2.tar.gz && \
+    cd openmpi-4.0.2 && \
     ./configure --enable-orterun-prefix-by-default  --with-cuda=/usr/local/cuda  && \
     make -j $(nproc) all && \
     make install && \
@@ -90,7 +90,7 @@ RUN mkdir /tmp/openmpi && \
 
 # Install Horovod, temporarily using CUDA stubs
 RUN ldconfig /usr/local/cuda/targets/x86_64-linux/lib/stubs && \
-    HOROVOD_GPU_ALLREDUCE=NCCL  HOROVOD_WITH_TENSORFLOW=1 pip install --no-cache-dir horovod==0.20.0 && \
+    HOROVOD_GPU_ALLREDUCE=NCCL  HOROVOD_WITH_TENSORFLOW=1 pip install --no-cache-dir horovod==0.18.1 && \
     ldconfig
 
 # Install OpenSSH for MPI to communicate between containers
