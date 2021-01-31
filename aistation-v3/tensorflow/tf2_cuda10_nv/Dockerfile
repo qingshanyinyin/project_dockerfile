@@ -1,5 +1,7 @@
 FROM nvcr.io/nvidia/tensorflow:20.03-tf2-py3
 
+# Set default shell to /bin/bash
+SHELL ["/bin/bash", "-cu"]
 
 # Install OpenSSH for MPI to communicate between containers
 RUN  apt-get -o Acquire::Check-Valid-Until=false  -o Acquire::Check-Date=false   update && apt-get install -y --no-install-recommends openssh-client openssh-server && \
@@ -8,7 +10,7 @@ RUN  apt-get -o Acquire::Check-Valid-Until=false  -o Acquire::Check-Date=false  
 # python tools
 
 #
-# Allow OpenSSH to talk to containers without asking for confirmation
+# Allow OpenSSH to talk to conta    iners without asking for confirmation
 RUN cat /etc/ssh/ssh_config | grep -v StrictHostKeyChecking > /etc/ssh/ssh_config.new && \
     echo "    StrictHostKeyChecking no" >> /etc/ssh/ssh_config.new && \
     cat /etc/ssh/sshd_config | grep -v  PermitRootLogin> /etc/ssh/sshd_config.new && \
