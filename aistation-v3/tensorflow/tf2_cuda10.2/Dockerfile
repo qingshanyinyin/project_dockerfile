@@ -80,7 +80,7 @@ RUN pip install tensorflow-gpu==2.1.0 && rm -rf /root/.cache/pip/http/*
 RUN mkdir /tmp/openmpi && \
     cd /tmp/openmpi && \
     wget https://download.open-mpi.org/release/open-mpi/v3.1/openmpi-3.1.4.tar.gz && \
-    tar zxf penmpi-3.1.4.tar.gz && \
+    tar zxf openmpi-3.1.4.tar.gz && \
     cd openmpi-3.1.4 && \
     ./configure --enable-orterun-prefix-by-default  --with-cuda=/usr/local/cuda  && \
     make -j $(nproc) all && \
