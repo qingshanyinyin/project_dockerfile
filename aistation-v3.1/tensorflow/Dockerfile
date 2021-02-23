@@ -28,7 +28,7 @@ RUN apt-get -o Acquire::Check-Valid-Until=false  -o Acquire::Check-Date=false   
         net-tools \
         inetutils-ping \
         bzip2 \
-        unzip \
+        unzip
 
 # python tools
 RUN pip --no-cache-dir install \
