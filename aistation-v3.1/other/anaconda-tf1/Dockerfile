@@ -50,12 +50,13 @@ RUN apt-get -o Acquire::Check-Valid-Until=false  -o Acquire::Check-Date=false   
 &&      rm -rf /var/lib/apt/lists/* \
 &&  add-apt-repository universe
 
-RUN if [[ "${PYTHON_VERSION}" == "3.7" ]]; then \
+RUN if [[ "${PYTHON_VERSION}" == "3.6" ]]; then \
         apt-get  -o Acquire::Check-Valid-Until=false  -o Acquire::Check-Date=false  update &&  apt-get install -y python${PYTHON_VERSION}-distutils; \
         #apt-get install -y python${PYTHON_VERSION}-distutils; \
     fi
 
-RUN ln -s /usr/bin/python${PYTHON_VERSION} /usr/bin/python && curl -O https://bootstrap.pypa.io/get-pip.py && \
+RUN ln -s /usr/bin/python${PYTHON_VERSION} /usr/bin/python
+RUN curl -O https://bootstrap.pypa.io/get-pip.py && \
     python get-pip.py && rm get-pip.py
 
 # Install TensorFlow, Keras, PyTorch and MXNet
