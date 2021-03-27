@@ -47,7 +47,7 @@ RUN apt-get -o Acquire::Check-Valid-Until=false  -o Acquire::Check-Date=false   
         libibverbs1 \
         ibverbs-providers \
 #&&     apt-get clean \
-&&      rm -rf /var/lib/apt/lists/*
+&&      rm -rf /var/lib/apt/lists/* \
 &&  add-apt-repository universe
 
 RUN if [[ "${PYTHON_VERSION}" == "3.7" ]]; then \
