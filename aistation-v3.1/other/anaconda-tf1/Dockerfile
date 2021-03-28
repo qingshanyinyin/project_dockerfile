@@ -132,7 +132,8 @@ RUN mkdir /etc/jupyter/ && wget -P /etc/jupyter/  https://raw.githubusercontent.
     &&  wget -P /etc/jupyter/ https://raw.githubusercontent.com/Winowang/jupyter_gpu/master/custom.js \
 #anaconda
     && mkdir /tmp/anaconda/ && wget -P /tmp/anaconda/ https://repo.anaconda.com/archive/Anaconda3-5.2.0-Linux-x86_64.sh \
-    && bash /tmp/anaconda/Anaconda3-5.2.0-Linux-x86_64.sh && rm -rf /tmp/anaconda/*
+    && bash /tmp/anaconda/Anaconda3-5.2.0-Linux-x86_64.sh -b -p /home/anaconda3 && rm -rf /tmp/anaconda/*
+ENV PATH /home/anaconda3/bin:$PATH
 
 #tini
 ENV TINI_VERSION v0.18.0
