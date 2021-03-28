@@ -1,12 +1,12 @@
 # lxy edit
-FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu18.04
+FROM nvidia/cuda:10.1-cudnn7-devel-ubuntu18.04
 
 # TensorFlow version is tightly coupled to CUDA and cuDNN so it should be selected carefully
 ENV TENSORFLOW_VERSION=1.12.0
 # lxy edit
-ENV CUDNN_VERSION=7.6.5.32-1+cuda10.0
+ENV CUDNN_VERSION=7.6.5.32-1+cuda10.1
 # lxy edit
-ENV NCCL_VERSION=2.6.4-1+cuda10.0
+ENV NCCL_VERSION=2.8.3-1+cuda10.1
 
 # Python 2.7 or 3.6 is supported by Ubuntu Bionic out of the box
 ARG python=3.6
