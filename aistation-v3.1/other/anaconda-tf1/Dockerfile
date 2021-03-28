@@ -9,7 +9,7 @@ ENV CUDNN_VERSION=7.6.5.32-1+cuda10.1
 ENV NCCL_VERSION=2.8.3-1+cuda10.1
 
 # Python 2.7 or 3.6 is supported by Ubuntu Bionic out of the box
-ARG python=3.5
+ARG python=3.6
 ENV PYTHON_VERSION=${python}
 
 # Set default shell to /bin/bash
@@ -19,9 +19,10 @@ SHELL ["/bin/bash", "-cu"]
 #RUN echo deb http://archive.ubuntu.com/ubuntu xenial main universe | tee -a /etc/apt/sources.list
 
 # need followings when 18.04 is used
-RUN  apt-get install -y apt-transport-https && echo 'deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64 /' > /etc/apt/sources.list.d/cuda.list
+RUN  apt-get install -y apt-transport-https
+RUN  echo 'deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64 /' > /etc/apt/sources.list.d/cuda.list
 
-#RUN  apt-get -o Acquire::Check-Valid-Until=false  -o Acquire::Check-Date=false   update
+RUN  apt-get -o Acquire::Check-Valid-Until=false  -o Acquire::Check-Date=false   update
 
 RUN apt-get -o Acquire::Check-Valid-Until=false  -o Acquire::Check-Date=false   update && apt-get install -y --allow-downgrades --allow-change-held-packages --no-install-recommends \
         build-essential \
@@ -47,10 +48,11 @@ RUN apt-get -o Acquire::Check-Valid-Until=false  -o Acquire::Check-Date=false   
         libibverbs1 \
         ibverbs-providers \
 #&&     apt-get clean \
-&&      rm -rf /var/lib/apt/lists/* \
-&&  add-apt-repository universe
+&&      rm -rf /var/lib/apt/lists/*
 
-RUN if [[ "${PYTHON_VERSION}" == "3.5" ]]; then \
+RUN add-apt-repository universe
+
+RUN if [[ "${PYTHON_VERSION}" == "3.6" ]]; then \
         apt-get  -o Acquire::Check-Valid-Until=false  -o Acquire::Check-Date=false  update &&  apt-get install -y python${PYTHON_VERSION}-distutils; \
         #apt-get install -y python${PYTHON_VERSION}-distutils; \
     fi
