@@ -1,12 +1,12 @@
 # lxy edit
-FROM nvidia/cuda:10.1-cudnn7-devel-ubuntu18.04
+FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu16.04
 
 # TensorFlow version is tightly coupled to CUDA and cuDNN so it should be selected carefully
 ENV TENSORFLOW_VERSION=1.12.0
 # lxy edit
-ENV CUDNN_VERSION=7.6.5.32-1+cuda10.1
+ENV CUDNN_VERSION=7.6.5.32-1+cuda10.0
 # lxy edit
-ENV NCCL_VERSION=2.8.3-1+cuda10.1
+ENV NCCL_VERSION=2.6.4-1+cuda10.0
 
 # Python 2.7 or 3.6 is supported by Ubuntu Bionic out of the box
 ARG python=3.6
@@ -20,7 +20,7 @@ SHELL ["/bin/bash", "-cu"]
 
 # need followings when 18.04 is used
 RUN  apt-get install -y apt-transport-https
-RUN  echo 'deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1804/x86_64 /' > /etc/apt/sources.list.d/cuda.list
+RUN  echo 'deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64 /' > /etc/apt/sources.list.d/cuda.list
 
 RUN  apt-get -o Acquire::Check-Valid-Until=false  -o Acquire::Check-Date=false   update
 
@@ -79,9 +79,9 @@ RUN pip install tensorflow-gpu==1.12.0 && rm -rf /root/.cache/pip/http/*
 # Install Open MPI
 RUN mkdir /tmp/openmpi && \
     cd /tmp/openmpi && \
-    wget https://www.open-mpi.org/software/ompi/v4.0/downloads/openmpi-4.0.2.tar.gz && \
-    tar zxf openmpi-4.0.2.tar.gz && \
-    cd openmpi-4.0.2 && \
+    wget https://www.open-mpi.org/software/ompi/v3.1/downloads/openmpi-3.1.3.tar.gz && \
+    tar zxf openmpi-3.1.3.tar.gz && \
+    cd openmpi-3.1.3 && \
     ./configure --enable-orterun-prefix-by-default  --with-cuda=/usr/local/cuda  && \
     make -j $(nproc) all && \
     make install && \
@@ -90,7 +90,7 @@ RUN mkdir /tmp/openmpi && \
 
 # Install Horovod, temporarily using CUDA stubs
 RUN ldconfig /usr/local/cuda/targets/x86_64-linux/lib/stubs && \
-    HOROVOD_GPU_ALLREDUCE=NCCL  HOROVOD_WITH_TENSORFLOW=1 pip install --no-cache-dir horovod==0.18.1 && \
+    HOROVOD_GPU_ALLREDUCE=NCCL  HOROVOD_WITH_TENSORFLOW=1 pip install --no-cache-dir horovod==0.15.1 && \
     ldconfig
 
 # Install OpenSSH for MPI to communicate between containers
