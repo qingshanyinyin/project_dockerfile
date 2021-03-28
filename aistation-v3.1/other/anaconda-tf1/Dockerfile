@@ -47,19 +47,22 @@ RUN apt-get -o Acquire::Check-Valid-Until=false  -o Acquire::Check-Date=false   
         librdmacm1 \
         libibverbs1 \
         ibverbs-providers \
-#&&     apt-get clean \
-&&      rm -rf /var/lib/apt/lists/*
+#&& \
+#     apt-get clean \
+&& \
+     rm -rf /var/lib/apt/lists/*
 
 RUN add-apt-repository universe
-
 RUN if [[ "${PYTHON_VERSION}" == "3.6" ]]; then \
         apt-get  -o Acquire::Check-Valid-Until=false  -o Acquire::Check-Date=false  update &&  apt-get install -y python${PYTHON_VERSION}-distutils; \
         #apt-get install -y python${PYTHON_VERSION}-distutils; \
     fi
 
 RUN ln -s /usr/bin/python${PYTHON_VERSION} /usr/bin/python
+
 RUN curl -O https://bootstrap.pypa.io/get-pip.py && \
-    python get-pip.py && rm get-pip.py
+    python get-pip.py && \
+    rm get-pip.py
 
 # Install TensorFlow, Keras, PyTorch and MXNet
 RUN pip --no-cache-dir install future typing
@@ -76,9 +79,9 @@ RUN pip install tensorflow-gpu==1.12.0 && rm -rf /root/.cache/pip/http/*
 # Install Open MPI
 RUN mkdir /tmp/openmpi && \
     cd /tmp/openmpi && \
-    wget https://www.open-mpi.org/software/ompi/v3.1/downloads/openmpi-3.1.3.tar.gz && \
-    tar zxf openmpi-3.1.3.tar.gz && \
-    cd openmpi-3.1.3 && \
+    wget https://www.open-mpi.org/software/ompi/v4.0/downloads/openmpi-4.0.2.tar.gz && \
+    tar zxf openmpi-4.0.2.tar.gz && \
+    cd openmpi-4.0.2 && \
     ./configure --enable-orterun-prefix-by-default  --with-cuda=/usr/local/cuda  && \
     make -j $(nproc) all && \
     make install && \
@@ -86,10 +89,9 @@ RUN mkdir /tmp/openmpi && \
     rm -rf /tmp/openmpi
 
 # Install Horovod, temporarily using CUDA stubs
-RUN ldconfig /usr/local/cuda-10.1/targets/x86_64-linux/lib/stubs && \
-    HOROVOD_GPU_ALLREDUCE=NCCL  HOROVOD_WITH_TENSORFLOW=1 pip install --no-cache-dir horovod==0.15.1 && \
+RUN ldconfig /usr/local/cuda/targets/x86_64-linux/lib/stubs && \
+    HOROVOD_GPU_ALLREDUCE=NCCL  HOROVOD_WITH_TENSORFLOW=1 pip install --no-cache-dir horovod==0.18.1 && \
     ldconfig
-
 
 # Install OpenSSH for MPI to communicate between containers
 RUN apt-get install -y --no-install-recommends openssh-client openssh-server && \
@@ -119,7 +121,8 @@ RUN pip --no-cache-dir install jupyter \
                 mpi4py \
                 matplotlib \
                 visdom \
-&& rm -rf /root/.cache/pip/http/*
+&& \
+    rm -rf /root/.cache/pip/http/*
 
 # fix opencv issues
 #RUN apt-get update && apt-get install -y --allow-downgrades --allow-change-held-packages --no-install-recommends \
@@ -127,13 +130,14 @@ RUN apt-get install -y --allow-downgrades --allow-change-held-packages --no-inst
             libsm-dev \
             libxrender1 \
             libxext-dev  \
-&& apt-get clean \
-&& rm -rf /var/lib/apt/lists/*
+&& \
+     apt-get clean \
+&& \
+     rm -rf /var/lib/apt/lists/*
 
-#jupyter
-RUN mkdir /etc/jupyter/ && wget -P /etc/jupyter/  https://raw.githubusercontent.com/Winowang/jupyter_gpu/master/jupyter_notebook_config.py \
-    &&  wget -P /etc/jupyter/ https://raw.githubusercontent.com/Winowang/jupyter_gpu/master/custom.js \
-#anaconda
+#jupyter、anaconda
+RUN mkdir /etc/jupyter/ && wget -P /etc/jupyter/  https://raw.githubusercontent.com/Winowang/jupyter_gpu/master/jupyter_notebook_config.py
+RUN wget -P /etc/jupyter/ https://raw.githubusercontent.com/Winowang/jupyter_gpu/master/custom.js \
     && mkdir /tmp/anaconda/ && wget -P /tmp/anaconda/ https://repo.anaconda.com/archive/Anaconda3-5.2.0-Linux-x86_64.sh \
     && bash /tmp/anaconda/Anaconda3-5.2.0-Linux-x86_64.sh -b -p /home/anaconda3 && rm -rf /tmp/anaconda/*
 ENV PATH /home/anaconda3/bin:$PATH
