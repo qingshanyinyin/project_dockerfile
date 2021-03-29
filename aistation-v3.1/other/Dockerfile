@@ -21,7 +21,7 @@ RUN apt-get -o Acquire::Check-Valid-Until=false  -o Acquire::Check-Date=false   
         libpng-dev \
         librdmacm1 \
         libibverbs1 \
-        ibverbs-providers \
+        ibverbs-providers
 #anaconda
 RUN mkdir /tmp/anaconda/ && wget --no-check-certificate -P /tmp/anaconda/ https://repo.anaconda.com/archive/Anaconda3-5.2.0-Linux-x86_64.sh \
     && bash /tmp/anaconda/Anaconda3-5.2.0-Linux-x86_64.sh -b -p /usr/local/anaconda3 && rm -rf /tmp/anaconda/*
