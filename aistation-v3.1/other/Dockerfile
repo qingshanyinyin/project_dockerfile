@@ -15,8 +15,8 @@ RUN apt-get -o Acquire::Check-Valid-Until=false  -o Acquire::Check-Date=false   
         unzip
 
 #conda
-RUN conda install -y cudatoolkit=10.0 && conda -y install nccl=2.3.7 && conda install -y cudnn=7.4.2 && \
-    conda install -y tensorflow-gpu==1.12 && conda install -y keras=2.2.4 && conda install -y python=3.6
+RUN conda install cudatoolkit=10.0 && conda install nccl=2.3.7 && conda install cudnn=7.4.2 && \
+    conda install tensorflow-gpu==1.12 && conda install keras=2.2.4 && conda install python=3.6
 
 # Install OpenSSH for MPI to communicate between containers
 RUN  apt-get -o Acquire::Check-Valid-Until=false  -o Acquire::Check-Date=false   update && apt-get install -y --no-install-recommends openssh-client openssh-server && \
