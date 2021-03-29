@@ -55,16 +55,16 @@ RUN cat /etc/ssh/ssh_config | grep -v StrictHostKeyChecking > /etc/ssh/ssh_confi
 #    wget -P /opt/conda/etc/jupyter/  https://raw.githubusercontent.com/Winowang/jupyter_gpu/master/custom.js
 
 # Install Open MPI
-RUN mkdir /tmp/openmpi && \
-    cd /tmp/openmpi && \
-    wget https://www.open-mpi.org/software/ompi/v3.1/downloads/openmpi-3.1.3.tar.gz && \
-    tar zxf openmpi-3.1.3.tar.gz && \
-    cd openmpi-3.1.3 && \
-    ./configure --enable-orterun-prefix-by-default  --with-cuda=/usr/local/cuda  && \
-    make -j $(nproc) all && \
-    make install && \
-    ldconfig && \
-    rm -rf /tmp/openmpi
+#RUN mkdir /tmp/openmpi && \
+#    cd /tmp/openmpi && \
+#    wget https://www.open-mpi.org/software/ompi/v3.1/downloads/openmpi-3.1.3.tar.gz && \
+#    tar zxf openmpi-3.1.3.tar.gz && \
+#    cd openmpi-3.1.3 && \
+#    ./configure --enable-orterun-prefix-by-default  --with-cuda=/usr/local/cuda  && \
+#    make -j $(nproc) all && \
+#    make install && \
+#    ldconfig && \
+#    rm -rf /tmp/openmpi
 
 # Install Horovod, temporarily using CUDA stubs
 RUN ldconfig /usr/local/cuda/targets/x86_64-linux/lib/stubs && \
