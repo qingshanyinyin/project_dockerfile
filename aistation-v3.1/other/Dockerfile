@@ -37,9 +37,9 @@ RUN cat /etc/ssh/ssh_config | grep -v StrictHostKeyChecking > /etc/ssh/ssh_confi
     mv /etc/ssh/sshd_config.new /etc/ssh/sshd_config
 
 #jupyter
-RUN rm -rf /opt/conda/etc/jupyter/* && \
-    wget -P /opt/conda/etc/jupyter/  https://raw.githubusercontent.com/Winowang/jupyter_gpu/master/jupyter_notebook_config.py && \
-    wget -P /opt/conda/etc/jupyter/  https://raw.githubusercontent.com/Winowang/jupyter_gpu/master/custom.js
+#RUN rm -rf /opt/conda/etc/jupyter/*
+#    wget -P /opt/conda/etc/jupyter/  https://raw.githubusercontent.com/Winowang/jupyter_gpu/master/jupyter_notebook_config.py && \
+#    wget -P /opt/conda/etc/jupyter/  https://raw.githubusercontent.com/Winowang/jupyter_gpu/master/custom.js
 
 # Install Open MPI
 RUN mkdir /tmp/openmpi && \
