@@ -1,4 +1,4 @@
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 
 # common tools
 RUN apt-get -o Acquire::Check-Valid-Until=false  -o Acquire::Check-Date=false   update && apt-get install -y --allow-downgrades --allow-change-held-packages --no-install-recommends \
@@ -10,7 +10,7 @@ RUN apt-get -o Acquire::Check-Valid-Until=false  -o Acquire::Check-Date=false   
         bzip2 \
         unzip
 #anaconda
-RUN mkdir /tmp/anaconda/ && wget -P /tmp/anaconda/ https://repo.anaconda.com/archive/Anaconda3-5.2.0-Linux-x86_64.sh \
+RUN mkdir /tmp/anaconda/ && wget --no-check-certificate -P /tmp/anaconda/ https://repo.anaconda.com/archive/Anaconda3-5.2.0-Linux-x86_64.sh \
     && bash /tmp/anaconda/Anaconda3-5.2.0-Linux-x86_64.sh -b -p /home/anaconda3 && rm -rf /tmp/anaconda/*
 #ENV PATH /home/anaconda3/bin:$PATH
 
