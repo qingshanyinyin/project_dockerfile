@@ -17,8 +17,8 @@ ENV PATH /usr/local/anaconda3/bin:$PATH
 RUN conda install python=3.6
 #conda
 RUN conda install cudatoolkit=10.0
-RUN conda install nccl=2.6.4
-RUN conda install cudnn=7.4.2
+RUN conda install nccl
+RUN conda install cudnn
 RUN conda install tensorflow-gpu==1.12
 RUN conda install keras=2.2.4
 
