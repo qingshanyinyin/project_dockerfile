@@ -2,13 +2,26 @@ FROM ubuntu:18.04
 
 # common tools
 RUN apt-get -o Acquire::Check-Valid-Until=false  -o Acquire::Check-Date=false   update && apt-get install -y --allow-downgrades --allow-change-held-packages --no-install-recommends \
+        build-essential \
+        cmake \
+        #gcc-4.9 \
+        #g++-4.9 \
+        #gcc-4.9-base \
+        software-properties-common \
+        #git \
         curl \
         vim \
         wget \
         net-tools \
         inetutils-ping \
         bzip2 \
-        unzip
+        unzip \
+        ca-certificates \
+        libjpeg-dev \
+        libpng-dev \
+        librdmacm1 \
+        libibverbs1 \
+        ibverbs-providers \
 #anaconda
 RUN mkdir /tmp/anaconda/ && wget --no-check-certificate -P /tmp/anaconda/ https://repo.anaconda.com/archive/Anaconda3-5.2.0-Linux-x86_64.sh \
     && bash /tmp/anaconda/Anaconda3-5.2.0-Linux-x86_64.sh -b -p /usr/local/anaconda3 && rm -rf /tmp/anaconda/*
