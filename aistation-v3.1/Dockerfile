@@ -15,7 +15,8 @@ RUN apt-get -o Acquire::Check-Valid-Until=false  -o Acquire::Check-Date=false   
         unzip
 
 #conda install cuda and so on.
-RUN conda create -n tensorflow python=3.6 && source activate tensorflow
+RUN source /home/anaconda3/etc/profile.d
+RUN conda create -n tensorflow python=3.6 && conda activate tensorflow
 RUN conda install cudatoolkit=10.0 && conda install nccl && conda install cudnn && \
     conda install tensorflow-gpu==1.12 && conda install keras=2.2.4
 #RUN source deactivate
